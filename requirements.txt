@@ -1,0 +1,4 @@
+pymongo[srv]
+redis
+streamlit
+pydantic-settings
