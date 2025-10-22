@@ -4,6 +4,8 @@ Um app moderno de **gestão de tarefas** (To-Do App) desenvolvido em **Python**,
 
 Projetado para ser **rápido, escalável e intuitivo** 🔥
 
+Apresentação do projeto : https://youtu.be/_-bA8wa7jbY
+
 ---
 
 ## 🚀 Tecnologias Utilizadas
