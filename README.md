@@ -38,20 +38,3 @@ O desempenho é otimizado utilizando o Redis para armazenar a lista de tarefas e
 A chave utilizada é: `TASK_LIST_CACHE_KEY = "task_list"`
 
 **Invalidando o Cache:** Toda vez que uma tarefa é **adicionada, atualizada ou excluída**, o cache é **invalidado automaticamente**. Isso garante que os dados listados sejam sempre os mais atualizados, mantendo as consultas ultrarrápidas ⚙️.
-
-#### Lógica Interna Simplificada (Exemplo):
-
-```python
-# Exemplo de fluxo dentro do TaskManager
-
-def list_tasks(self, show_completed=None):
-    # 1️⃣ Tenta buscar no cache Redis
-    tasks = cache_manager.get_cache(TASK_LIST_CACHE_KEY)
-    if tasks:
-        return tasks
-
-    # 2️⃣ Busca no MongoDB se não houver cache
-    tasks = list(self.collection.find())
-    cache_manager.set_cache(TASK_LIST_CACHE_KEY, tasks)
-    return tasks
-```
