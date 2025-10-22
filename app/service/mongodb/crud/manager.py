@@ -13,16 +13,13 @@ class TaskManager:
         self.cache = cache_manager 
 
     def _serialize(self, task: Dict[str, Any]) -> Dict[str, Any]:
-        """Converte ObjectId e datas em strings legíveis."""
         task["_id"] = str(task["_id"])
         if isinstance(task.get("created_at"), datetime):
             task["created_at"] = task["created_at"].strftime("%Y-%m-%d %H:%M:%S")
         return task
 
     def _invalidate_cache(self):
-        """Chama o método de invalidação do RedisManager."""
         self.cache.invalidate_cache(TASK_LIST_CACHE_KEY)
-
 
     def add_task(self, text: str, priority: int, completed: bool = False) -> Dict[str, Any]:
         task = {

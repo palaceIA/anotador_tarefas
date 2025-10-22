@@ -5,9 +5,6 @@ from core.settings import config
 
 
 class RedisManager:
-    """
-    Gerencia a conexão e as operações de caching com o Redis.
-    """
     def __init__(self, default_ttl: int = 60):
         self.host = config.REDIS_HOST
         self.port : int = config.REDIS_PORT
@@ -18,7 +15,6 @@ class RedisManager:
         self.connect()
 
     def connect(self):
-            """Tenta estabelecer a conexão com o servidor Redis."""
             try:
                 self._redis_client = redis.Redis(
                     host=self.host, 
@@ -39,15 +35,12 @@ class RedisManager:
 
     @property
     def client(self) -> Optional[redis.Redis]:
-        """Retorna o cliente Redis conectado ou None."""
         return self._redis_client
 
     def is_connected(self) -> bool:
-        """Verifica se o cliente Redis está ativo."""
         return self.client is not None
 
     def get_cache(self, key: str) -> Optional[Any]:
-        """Recupera um valor do cache, desserializando de JSON."""
         if not self.is_connected():
             return None
         
@@ -61,10 +54,8 @@ class RedisManager:
             return None
 
     def set_cache(self, key: str, data: Any, ttl: Optional[int] = None) -> bool:
-        """Armazena um valor no cache, serializando para JSON."""
         if not self.is_connected():
             return False
-        
         try:
             ttl = ttl if ttl is not None else self.default_ttl
 
@@ -76,7 +67,6 @@ class RedisManager:
             return False
 
     def invalidate_cache(self, key: str) -> bool:
-        """Remove (invalida) uma ou mais chaves do cache."""
         if not self.is_connected():
             return False
         
